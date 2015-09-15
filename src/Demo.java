@@ -28,11 +28,12 @@ public class Demo {
         List<Path> xmlFilePaths = pathXMLScanner.getPathList();
 
         changeTestMethodsInTestClasses(javaFilePaths);
-//        changeTestMethodsInSuits(xmlFilePaths);
-//        changeTestMethodsInXML(knownFailuresPath);
+        changeTestMethodsInSuits(xmlFilePaths);
+        changeTestMethodsInXML(knownFailuresPath);
 
         workbook.write();
         workbook.close();
+
     }
 
     private static void changeTestMethodsInTestClasses(List<Path> javaFilePaths){
