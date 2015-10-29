@@ -15,7 +15,8 @@ public class Demo {
     private static Path knownFailuresPath = Paths.get(localPackage+"\\ServiceTests\\known_failures_custom_cases.xml");
     private static HashMap<String, HashMap<String,String>> testClasses = new HashMap<>();
     private static int row = 0;
-    private static  WritableSheet sheet;
+    private static WritableSheet sheet;
+    private static boolean changeTestMethodsNames = false;
 
     public static void main(String [] args) throws Exception{
         WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\tmp\\output.xls"));
@@ -40,8 +41,10 @@ public class Demo {
         for (Path path: javaFilePaths){
             try{
                 TestMethodRewrite testMethodRewrite = new TestMethodRewrite(path);
-               // TestClass updatedTestClass = testMethodRewrite.writeToFile();
-               // testClasses.put(getClassName(updatedTestClass), getClassMethods(updatedTestClass));
+                if(changeTestMethodsNames){
+                    TestClass updatedTestClass = testMethodRewrite.writeToFile();
+                    testClasses.put(getClassName(updatedTestClass), getClassMethods(updatedTestClass));
+                }
             }catch (Exception e){
                 System.out.println(path+" "+e.toString());
                 jxl.write.Label column1 = new jxl.write.Label(0, row, path.toString());
